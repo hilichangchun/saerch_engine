@@ -1,3 +1,6 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 from flask import Flask, request, render_template, redirect, url_for
 from config import Config #initialize_application_config
 import pymysql
@@ -6,6 +9,7 @@ from gensim.models import KeyedVectors
 from gensim.scripts.glove2word2vec import glove2word2vec
 from indexer import *
 from recommender import *
+
 from searcher_v2 import *
 import random
 import time
@@ -31,7 +35,7 @@ def load_glove():
 @app.route('/')
 def main():
 
-    # 传进来的值用target接收
+
     target1 = 'Business'
     target2 = 'Entertainment'
     target3 = 'Health'
@@ -142,7 +146,6 @@ def search():
             login_url = '/search/page/1/'
             return redirect(login_url)
             #return render_template('search_results.html',article = sulin,pages=pages, ID=search_results, query=query, lens=lens,  error=True)
-            #####修改成**Url **Article的形式 Url=dicForUrl, Author=dicForAuthor, Abstract=dicForAbstract, Image=dicForImage,Date=dicForDate, Title=dicForTitle,
 
 
 
@@ -222,32 +225,3 @@ def reset_config():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    #实时修改
-    #全部改为config统一配置
-
-"""  
-    cur = conn.cursor()
-    dicForTitle = {}
-    dicForDate = {}
-    dicForAbstract = {}
-    dicForImage = {}
-    dicForUrl = {}
-    dicForAuthor = {}
-
-    for i in id:
-        # 下面的搜索语句取出来对应的属性存入字典
-        # index从0开始，因此TITLE的index为0，后面的属性以此内推
-        # 要想加啥就在下面的搜索语句里面加就可以了，比如说你要搜多一个TEXT，此时的搜索语句就会变成
-        # cursor.execute("SELECT `TITLE`, `DATE`, `ABSTRACT`, `IMAGE`, `URL`, `TEXT` FROM docInfo WHERE ID = %s", i)
-        # 上面再建立一个字典去存结果
-        cur.execute("SELECT `TITLE`, `DATE`, `ABSTRACT`, `IMAGE`, `URL` ,`AUTHOR` FROM docInfo WHERE ID = %s", i)
-        sulin = cur.fetchone()
-        # print(i)
-        if sulin is not None:
-            dicForTitle[i] = sulin[0]
-            dicForDate[i] = sulin[1]
-            dicForAbstract[i] = sulin[2]
-            dicForImage[i] = sulin[3]
-            dicForUrl[i] = sulin[4]
-            dicForAuthor[i] = sulin[5]
-"""
