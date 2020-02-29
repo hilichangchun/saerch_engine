@@ -5,14 +5,10 @@ connection = pymysql.connect("dbforedinburgh.cqpftfdbw3kd.eu-west-2.rds.amazonaw
 # connection = pymysql.connect("127.0.0.1", "root", "", "ttds")
 
 
-# target是一个list
-# fetchWordPosition和fetchKeywordValue函数里面存的是word[String格式] -> target = ['tifanaire', 'chelly']
-# fetchIDAndDate存的是ID[数字] -> target = [1,2,3]
-# 类似上面的格式传进去就没问题，我测试过了
-# 现在只fetchIDAndDate这个函数能用，剩下两个要等黄宸宇那边更新
+
 
 def fetchWordPosition(target):
-    # 取wordPosition中内容并存为字典
+
     target = list(target)
     result={}
     select_str = 'SELECT WORD, ID, POSITION FROM `wordPosition` WHERE WORD in (%s)' % ','.join(['%s'] * len(target))
@@ -28,7 +24,7 @@ def fetchWordPosition(target):
     return result
 
 def fetchKeywordValue(target):
-    # 取TFIDF / BM25的内容存入字典
+
     target = list(target)
     result={}
     select_str = 'SELECT WORD, ID, TFIDF, BM25 FROM `keywordValue` where WORD in (%s)' % ','.join(['%s'] * len(target))
@@ -45,7 +41,7 @@ def fetchKeywordValue(target):
     return result
 
 def fetchIDAndDate(target):
-    # 取 ID和DATE内容存进字典
+
     target = list(target)
     select_str = 'SELECT ID, DATE FROM `docIDTime` where ID in (%s)' % ','.join(['%s'] * len(target))
     # print("ID_TIME")
