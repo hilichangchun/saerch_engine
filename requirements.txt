@@ -26,5 +26,5 @@ six==1.14.0
 smart-open==1.9.0
 stemming==1.0.1
 urllib3==1.25.8
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 WTForms==2.2.1
